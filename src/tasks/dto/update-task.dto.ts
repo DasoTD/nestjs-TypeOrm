@@ -11,5 +11,5 @@ export class UpdateTaskDto extends PartialType(CreateTaskDto) {
   description?: string;
 
   @IsEnum(TaskStatus)
-  staus?: TaskStatus;
+  status?: TaskStatus;
 }

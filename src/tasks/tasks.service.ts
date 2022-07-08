@@ -40,12 +40,14 @@ export class TasksService {
     return task; //`This action returns a #${id} task`;
   }
 
-  async updateTask(id: string, updateTaskDto: UpdateTaskDto) {
-    const {status, title, description} = updateTaskDto
+  async updateTask(id: string, updateTaskDto: UpdateTaskDto): Promise<Task> {
+    const { status, title, description } = updateTaskDto;
     const task = await this.getTaskById(id);
-    // if(status)
-    // task.
-    //return `This action updates a ${id} task`;
+    if (status) task.status = status;
+    if (title) task.title = title;
+    if (description) task.description = description;
+    await this.taskReporitory.save(task);
+    return task; //`This action updates a ${id} task`;
   }
 
   async deleteTask(id: number): Promise<void> {
