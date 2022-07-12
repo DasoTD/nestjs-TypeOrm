@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { EntityRepository, Repository } from 'typeorm';
 import { Task } from './entities/task.entity';
 
