@@ -8,11 +8,15 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { GetUser } from './decorator';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { User } from './entities/auth.entity';
+import { JwtGuard } from './guards';
 
 @Controller('auth')
 export class AuthController {
@@ -29,6 +33,13 @@ export class AuthController {
     @Body() createAuthDto: CreateAuthDto,
   ): Promise<{ access_token: string }> {
     return this.authService.signIn(createAuthDto);
+  }
+  @Post('/me')
+  @UseGuards(JwtGuard)
+  me(@Req() req, @GetUser() user: User) {
+    console.log(req);
+
+    return user;
   }
 
   @Get()
