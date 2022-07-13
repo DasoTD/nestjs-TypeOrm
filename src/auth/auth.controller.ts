@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
@@ -19,6 +21,14 @@ export class AuthController {
   @Post('/signup')
   signUp(@Body() createAuthDto: CreateAuthDto): Promise<User> {
     return this.authService.signUp(createAuthDto);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('/signin')
+  signIn(
+    @Body() createAuthDto: CreateAuthDto,
+  ): Promise<{ access_token: string }> {
+    return this.authService.signIn(createAuthDto);
   }
 
   @Get()
