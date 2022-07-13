@@ -37,7 +37,7 @@ export class AuthController {
   @Post('/me')
   @UseGuards(JwtGuard)
   me(@Req() req, @GetUser() user: User) {
-    console.log(req);
+    // console.log(req);
 
     return user;
   }
