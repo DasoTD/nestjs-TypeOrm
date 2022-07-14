@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { WinstonModule } from 'nest-winston';
-import { type } from 'os';
+import { configSchemaValidation } from './config.schema';
 
 @Module({
   imports: [
@@ -13,6 +13,7 @@ import { type } from 'os';
     ConfigModule.forRoot({
       envFilePath: [`.env.${process.env.STAGE}`],
       isGlobal: true,
+      validationSchema: configSchemaValidation,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
