@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      dockerfile: Dockerfile
+      context: ./
+    ports:
+      - 7217:7217
+  environment:
+      NODE_ENV: 'dev'
