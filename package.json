@@ -21,6 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@filesystem/core": "0.0.3-alpha.5",
     "@hapi/joi": "^17.1.1",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^2.2.0",
@@ -37,6 +38,7 @@
     "csurf": "^1.11.0",
     "helmet": "^5.1.0",
     "nest-winston": "^1.7.0",
+    "nestjs-winston-logger": "^1.1.11",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "pg": "^8.7.3",

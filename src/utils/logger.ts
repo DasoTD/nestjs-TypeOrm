@@ -1,3 +1,5 @@
+import { NestjsWinstonLoggerService } from 'nestjs-winston-logger';
+ //import { format, transports } from "winston";
 import { createLogger, format, transports } from 'winston';
 import rTracer from 'cls-rtracer';
 import path from 'path';
@@ -5,7 +7,7 @@ import fs from 'fs';
 import Module from 'module';
 //const debug = require('node-forge/lib/debug');
 
-const { combine, timestamp, label, printf } = format;
+const { combine, timestamp, label, printf, json, colorize } = format;
 
 const getLogLabel = (callingModule: any) => {
   const parts = callingModule.filename.split(path.sep);
@@ -49,12 +51,13 @@ const getFile = (type: string) => {
  *
  * @param {Module} callingModule the module from which the logger is called
  */
-const logger = (callingModule: Module) =>
-  createLogger({
+export const logger = (callingModule: Module) =>
+  new NestjsWinstonLoggerService({
     format: combine(
-      format.colorize(),
+      colorize({all: true}),
       label({ label: getLogLabel(callingModule) }),
       timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+      json(),
       printf((info) => {
         const rid = rTracer.id();
 
@@ -77,4 +80,4 @@ const logger = (callingModule: Module) =>
     exitOnError: false,
   });
 
-export default logger;
+//export default logger;

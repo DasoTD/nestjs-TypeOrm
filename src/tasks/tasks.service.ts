@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { InjectLogger, NestjsWinstonLoggerService } from 'nestjs-winston-logger';
 import { User } from 'src/auth/entities/auth.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -12,9 +13,12 @@ export class TasksService {
   constructor(
     @InjectRepository(TaskRepository)
     private taskReporitory: TaskRepository,
+    @InjectLogger(TasksService.name)
+    private logger : NestjsWinstonLoggerService
   ) {}
   async createTask(createTaskDto: CreateTaskDto, user: User): Promise<Task> {
     const { title, description } = createTaskDto;
+    this.logger.error('error plenty abeg');
     const task = this.taskReporitory.create({
       title,
       description,
