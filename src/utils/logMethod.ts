@@ -1,5 +1,6 @@
 import fs from 'fs';
 import rTracer from 'cls-rtracer';
+import path from 'path';
 
 export const formatDate = () => {
     let d = new Date(),
@@ -11,6 +12,11 @@ export const formatDate = () => {
     if (day.length < 2) day = '0' + day;
   
     return `${year}${month}${day}`;
+  };
+
+  export const getLogLabel = (callingModule:any) => {
+    const parts = callingModule.filename.split(path.sep);
+    return path.join(parts[parts.length - 2], parts.pop());
   };
 
 export const getFile = (type: string) => {
