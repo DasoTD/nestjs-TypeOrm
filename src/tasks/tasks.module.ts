@@ -9,9 +9,10 @@ import { AuthModule } from 'src/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import rTracer from 'cls-rtracer';
 import {getFile} from '../utils/logMethod';
+import { randomUUID } from 'crypto';
 
 
-const { combine, timestamp, json, colorize, printf } = format;
+const { combine, timestamp, json, colorize, printf, label } = format;
 
 @Module({
   imports: [
@@ -21,10 +22,11 @@ const { combine, timestamp, json, colorize, printf } = format;
     NestjsWinstonLoggerModule.forRoot({
       format: combine(
         timestamp({ format: 'YYYY-MM-DD HH:mm:ss'}),
+        label({ label: `new Date()` }),
         json(),
         colorize({all: true}),
         printf((info) => {
-          const rid = rTracer.id();
+          const rid = randomUUID();
   
           return rid
             ? `| ${info.timestamp} | ${rid} | ${info.label} | ${info.message} |`

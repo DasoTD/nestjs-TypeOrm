@@ -18,7 +18,8 @@ export class TasksService {
   ) {}
   async createTask(createTaskDto: CreateTaskDto, user: User): Promise<Task> {
     const { title, description } = createTaskDto;
-    this.logger.error('error plenty abeg');
+    this.logger.error('error plenty abeg'); 
+    this.logger.verbose('dddd')
     const task = this.taskReporitory.create({
       title,
       description,
