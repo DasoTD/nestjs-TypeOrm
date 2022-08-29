@@ -61,6 +61,22 @@ export class TasksService {
     await this.taskReporitory.save(task);
     return task; //`This action updates a ${id} task`;
   }
+  async RankUser() {
+    const tasks = this.taskReporitory.find({
+      order: {
+        id: 'DESC'
+    }
+    })
+    return tasks;
+  }
+
+  async QR( ){
+    const detail = this.taskReporitory.find({ order: {
+      user: "ASC"
+    }}); // this.taskReporitory.query('Select * from task');
+    //const details =  this.taskReporitory.createQueryBuilder('user').groupBy('user.id');
+    return detail;
+  }
 
   async deleteTask(id: string, user: User): Promise<void> {
     const task = await this.taskReporitory.delete({ id, user });
