@@ -17,6 +17,7 @@ import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { User } from './entities/auth.entity';
 import { JwtGuard } from './guards';
+import { Request } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -36,7 +37,7 @@ export class AuthController {
   }
   @Post('/me')
   @UseGuards(JwtGuard)
-  me(@Req() req, @GetUser() user: User) {
+  me(@Req() req: Request , @GetUser() user: User) {
     // console.log(req);
 
     return user;
